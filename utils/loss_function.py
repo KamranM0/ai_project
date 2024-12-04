@@ -10,6 +10,6 @@ class FocalLoss(torch.nn.Module):
 
     def forward(self, inputs, targets):
         bce_loss = F.cross_entropy(inputs, targets, reduction='none')
-        pt = torch.exp(-bce_loss)  # Probabilities
+        pt = torch.exp(-bce_loss) 
         focal_loss = self.alpha * (1 - pt) ** self.gamma * bce_loss
         return focal_loss.mean()

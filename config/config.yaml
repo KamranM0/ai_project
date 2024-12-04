@@ -1,17 +1,16 @@
 dataset:
-  raw_data_path: 'C:/Users/Tural/Desktop/Pakistani Currency/dataset/raw_data'
-  processed_data_path: 'C:/Users/Tural/Desktop/Pakistani Currency/dataset/processed_data'
-  train_path: 'C:/Users/Tural/Desktop/Pakistani Currency/dataset/processed_data/train'
-  val_path: 'C:/Users/Tural/Desktop/Pakistani Currency/dataset/processed_data/val'
-  test_path: 'C:/Users/Tural/Desktop/Pakistani Currency/dataset/processed_data/test'
-
+  raw_data_path: "C:/Users/LENOVO/Desktop/ai_project/dataset/raw_data"
+  processed_data_path: "C:/Users/LENOVO/Desktop/ai_project/dataset/processed_data"
+  train_path: "C:/Users/LENOVO/Desktop/ai_project/dataset/processed_data/train"
+  val_path: "C:/Users/LENOVO/Desktop/ai_project/dataset/processed_data/val"
+  test_path: "C:/Users/LENOVO/Desktop/ai_project/dataset/processed_data/test"
 
 training:
   batch_size: 32
   epochs: 20
   learning_rate: 0.001
   optimizer: "Adam"
-  device: "cuda"  # Change to "cpu" if you don't have a GPU
+  device: "cuda" # Change to "cpu" if you don't have a GPU
 
 evaluation:
   test_set: "data/test"
