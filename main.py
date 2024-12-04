@@ -45,8 +45,12 @@ def main():
     # TensorBoard writer
     writer = SummaryWriter()
 
+    checkpoint_dir = "checkpoints"
+    if not os.path.exists(checkpoint_dir):
+        os.makedirs(checkpoint_dir)
     # Choose model (ResNet18 or VGG16)
     model = ResNet18(num_classes=len(train_dataset.classes))  # You can switch to VGG16 if needed
+    
     model.to(device)  # Move model to GPU if available
 
     # Choose optimizer
@@ -72,16 +76,16 @@ def main():
 
     # Evaluate the model on the test set
     print("Evaluating model on test set...")
-    accuracy = evaluate_model(model, test_loader, device)
+    accuracy,f1 = evaluate_model(model, test_loader, device)
     print(f"Test Set Accuracy: {accuracy * 100:.2f}%")
+    print(f"Test Set F1: {f1 * 100:.2f}%")
 
     # Log test set accuracy to TensorBoard
     writer.add_scalar("Test Accuracy", accuracy, 0)
+    writer.add_scalar("Test F1 Score", f1, 0)
 
     # Ensure checkpoints directory exists
-    checkpoint_dir = "checkpoints"
-    if not os.path.exists(checkpoint_dir):
-        os.makedirs(checkpoint_dir)
+    
 
     # Optionally, save the trained model
     model_save_path = os.path.join(checkpoint_dir, "currency_model_Resnet_IMAGENET1K_V1.pth")

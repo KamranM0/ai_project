@@ -39,7 +39,7 @@ def train_model(model, dataloaders, criterion, optimizer, device, scheduler=None
 
                 # Accumulate loss
                 running_loss += loss.item() * inputs.size(0)
-
+                running_corrects += torch.sum(preds == labels.data)
                 # Collect predictions and true labels for F1-score calculation
                 all_preds.extend(preds.cpu().numpy())
                 all_labels.extend(labels.cpu().numpy())
@@ -47,13 +47,15 @@ def train_model(model, dataloaders, criterion, optimizer, device, scheduler=None
             # Calculate loss and F1-score for the epoch
             epoch_loss = running_loss / len(dataloaders[phase].dataset)
             epoch_f1 = f1_score(all_labels, all_preds, average='macro')  # Adjust average as needed
+            epoch_acc = running_corrects.double() / len(dataloaders[phase].dataset)
 
-            print(f"{phase.capitalize()} Loss: {epoch_loss:.4f} F1-Score: {epoch_f1:.4f}")
+            print(f"{phase.capitalize()} Loss: {epoch_loss:.4f} F1-Score: {epoch_f1:.4f} Accuracy: {epoch_acc:.4f}")
 
             # Log metrics to TensorBoard
             if writer:
                 writer.add_scalar(f"{phase.capitalize()} F1 score", epoch_f1, epoch)
                 writer.add_scalar(f"{phase.capitalize()} Loss", epoch_loss, epoch)
+                writer.add_scalar(f"{phase.capitalize()} Accuracy", epoch_acc, epoch)
 
             # Step the scheduler if applicable
             if phase == 'val' and scheduler:
