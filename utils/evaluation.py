@@ -1,6 +1,5 @@
+from sklearn.metrics import f1_score
 import torch
-from sklearn.metrics import accuracy_score
-
 def evaluate_model(model, dataloader, device):
     model.eval()
     all_preds = []
@@ -13,5 +12,6 @@ def evaluate_model(model, dataloader, device):
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
 
-    accuracy = accuracy_score(all_labels, all_preds)
-    return accuracy
+    # Calculate F1-score
+    f1 = f1_score(all_labels, all_preds, average='macro')  # Use 'weighted' for handling imbalanced classes
+    return f1

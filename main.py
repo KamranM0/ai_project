@@ -43,7 +43,7 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=config['training']['batch_size'], shuffle=False)
 
     # TensorBoard writer
-    writer = SummaryWriter(log_dir="runs/currency_classification")
+    writer = SummaryWriter()
 
     # Choose model (ResNet18 or VGG16)
     model = ResNet18(num_classes=len(train_dataset.classes))  # You can switch to VGG16 if needed
@@ -54,7 +54,7 @@ def main():
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5, verbose=True)
 
     # Define loss function
-    criterion = FocalLoss(alpha=0.75, gamma=2)  # For imbalanced datasets
+    criterion = torch.nn.CrossEntropyLoss()  # For imbalanced datasets
 
     # Train the model with TensorBoard logging
     print("Training model...")
