@@ -13,7 +13,6 @@ def evaluate_model(model, dataloader, device):
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
 
-    # Calculate F1-score
     accuracy = accuracy_score(all_labels, all_preds)
-    f1 = f1_score(all_labels, all_preds, average='macro')  # Use 'weighted' for handling imbalanced classes
+    f1 = f1_score(all_labels, all_preds, average='macro') 
     return accuracy,f1

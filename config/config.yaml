@@ -7,10 +7,10 @@ dataset:
 
 training:
   batch_size: 32
-  epochs: 20
+  epochs: 40
   learning_rate: 0.001
-  optimizer: "Adam"
-  device: "cuda" # Change to "cpu" if you don't have a GPU
+  optimizer: "sgd"
+  device: "cuda"
 
 evaluation:
   test_set: "data/test"
